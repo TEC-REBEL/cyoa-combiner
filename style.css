@@ -1,0 +1,643 @@
+/* ═══════════════════════════════════════════════════════════
+   CYOA Multi-Choice Combiner — Styles
+   Composition Panel with edit, add, reorder capabilities
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Enhanced Choice Buttons (in chat) ─── */
+
+.mes_text .custom-menu-msg-button.cyoa-enhanced {
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1.5px solid transparent;
+}
+
+.mes_text .custom-menu-msg-button.cyoa-enhanced:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.15),
+                inset 0 0 12px rgba(139, 92, 246, 0.05);
+    transform: translateY(-1px);
+}
+
+.mes_text .custom-menu-msg-button.cyoa-enhanced:active {
+    transform: translateY(0px) scale(0.99);
+}
+
+/* ─── Multi-select Hint Icon ─── */
+
+.cyoa-multi-hint {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    opacity: 0.25;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--SmartThemeBodyColor, #ccc);
+    pointer-events: none;
+}
+
+.mes_text .custom-menu-msg-button.cyoa-enhanced:hover .cyoa-multi-hint {
+    opacity: 0.5;
+}
+
+/* ─── Selected State ─── */
+
+.mes_text .custom-menu-msg-button.cyoa-selected {
+    border-color: rgba(139, 92, 246, 0.8) !important;
+    background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.12) 0%,
+        rgba(99, 102, 241, 0.08) 50%,
+        rgba(168, 85, 247, 0.12) 100%
+    ) !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2),
+                0 0 40px rgba(139, 92, 246, 0.08),
+                inset 0 0 15px rgba(139, 92, 246, 0.06) !important;
+}
+
+.mes_text .custom-menu-msg-button.cyoa-selected .cyoa-multi-hint {
+    opacity: 0.9;
+    color: #a78bfa;
+}
+
+/* ─── Selection Number Badge (on buttons) ─── */
+
+.cyoa-select-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+    animation: cyoa-badge-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cyoa-badge-pop {
+    0%   { transform: scale(0); opacity: 0; }
+    60%  { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Composition Panel (floating bottom drawer)
+   ═══════════════════════════════════════════════════════════ */
+
+.cyoa-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.cyoa-panel.cyoa-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.cyoa-panel-inner {
+    display: flex;
+    flex-direction: column;
+    background: rgba(12, 12, 20, 0.92);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    border-top: 1px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.5),
+                0 -1px 0 rgba(139, 92, 246, 0.15);
+    max-height: 45vh;
+}
+
+/* ─── Collapsed mode ─── */
+
+.cyoa-panel.cyoa-collapsed .cyoa-queue-list,
+.cyoa-panel.cyoa-collapsed .cyoa-add-custom {
+    display: none;
+}
+
+.cyoa-panel.cyoa-collapsed .cyoa-panel-inner {
+    max-height: none;
+}
+
+.cyoa-panel.cyoa-collapsed #cyoa-collapse-btn svg {
+    transform: rotate(180deg);
+}
+
+/* ─── Panel Header ─── */
+
+.cyoa-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.cyoa-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.cyoa-panel-title svg {
+    color: #a78bfa;
+}
+
+.cyoa-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
+}
+
+.cyoa-panel-header-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.cyoa-header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.cyoa-header-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.cyoa-header-btn svg {
+    transition: transform 0.25s ease;
+}
+
+/* ─── Queue List ─── */
+
+.cyoa-queue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 12px;
+    overflow-y: auto;
+    max-height: 200px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 92, 246, 0.3) transparent;
+}
+
+.cyoa-queue-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.cyoa-queue-list::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 3px;
+}
+
+.cyoa-empty-hint {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+    padding: 12px 0;
+    font-style: italic;
+}
+
+/* ─── Queue Item ─── */
+
+.cyoa-queue-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.15s ease;
+    animation: cyoa-item-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cyoa-queue-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(139, 92, 246, 0.15);
+}
+
+@keyframes cyoa-item-in {
+    0%   { opacity: 0; transform: translateX(-8px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Order number ── */
+
+.cyoa-item-order {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* ── Type icon ── */
+
+.cyoa-item-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.cyoa-type-choice {
+    background: rgba(99, 102, 241, 0.12);
+    color: #818cf8;
+}
+
+.cyoa-type-custom {
+    background: rgba(52, 211, 153, 0.12);
+    color: #6ee7b7;
+}
+
+.cyoa-item-type-icon {
+    display: block;
+}
+
+/* ── Item text ── */
+
+.cyoa-item-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ── Item action buttons ── */
+
+.cyoa-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    opacity: 0.4;
+    transition: opacity 0.15s ease;
+}
+
+.cyoa-queue-item:hover .cyoa-item-actions {
+    opacity: 1;
+}
+
+.cyoa-item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.12s ease;
+    padding: 0;
+}
+
+.cyoa-item-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.cyoa-item-btn:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.cyoa-item-edit:hover {
+    color: #a78bfa !important;
+    background: rgba(139, 92, 246, 0.15) !important;
+}
+
+.cyoa-item-remove:hover {
+    color: #f87171 !important;
+    background: rgba(248, 113, 113, 0.12) !important;
+}
+
+/* ─── Inline Edit Mode ─── */
+
+.cyoa-edit-input {
+    flex: 1;
+    min-width: 0;
+    padding: 4px 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    background: rgba(0, 0, 0, 0.4);
+    color: #e2e8f0;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.cyoa-edit-input:focus {
+    border-color: rgba(139, 92, 246, 0.8);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15);
+}
+
+.cyoa-edit-save,
+.cyoa-edit-cancel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.cyoa-edit-save {
+    background: rgba(52, 211, 153, 0.15);
+    color: #6ee7b7;
+}
+
+.cyoa-edit-save:hover {
+    background: rgba(52, 211, 153, 0.3);
+}
+
+.cyoa-edit-cancel {
+    background: rgba(248, 113, 113, 0.1);
+    color: #fca5a5;
+}
+
+.cyoa-edit-cancel:hover {
+    background: rgba(248, 113, 113, 0.2);
+}
+
+/* ─── Add Custom Text Row ─── */
+
+.cyoa-add-custom {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    flex-shrink: 0;
+}
+
+.cyoa-custom-input {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: #e2e8f0;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.cyoa-custom-input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.cyoa-custom-input:focus {
+    border-color: rgba(139, 92, 246, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+}
+
+.cyoa-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 12px;
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    border-radius: 8px;
+    background: rgba(52, 211, 153, 0.1);
+    color: #6ee7b7;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    font-family: inherit;
+    flex-shrink: 0;
+}
+
+.cyoa-add-btn:hover {
+    background: rgba(52, 211, 153, 0.2);
+    border-color: rgba(52, 211, 153, 0.4);
+    transform: translateY(-1px);
+}
+
+.cyoa-add-btn:active {
+    transform: translateY(0);
+}
+
+/* ─── Panel Footer ─── */
+
+.cyoa-panel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 10px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+/* ─── Action Buttons ─── */
+
+.cyoa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.cyoa-btn-clear {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cyoa-btn-clear:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.cyoa-btn-send {
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: #fff;
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    box-shadow: 0 2px 12px rgba(124, 58, 237, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cyoa-btn-send::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 70%
+    );
+    animation: cyoa-shimmer 3s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes cyoa-shimmer {
+    0%   { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.cyoa-btn-send:hover:not(:disabled) {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.45);
+    transform: translateY(-1px);
+}
+
+.cyoa-btn-send:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+}
+
+.cyoa-btn-send:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Settings Panel
+   ═══════════════════════════════════════════════════════════ */
+
+.cyoa-settings .cyoa-block {
+    margin-bottom: 10px;
+}
+
+.cyoa-settings .cyoa-block label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.cyoa-settings .cyoa-format-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.cyoa-settings .cyoa-format-textarea {
+    width: 100%;
+    min-height: 50px;
+    max-height: 120px;
+    resize: vertical;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 8px;
+    border-radius: 6px;
+    background: var(--SmartThemeBlurTintColor, rgba(0,0,0,0.3));
+    color: var(--SmartThemeBodyColor, #ccc);
+    border: 1px solid var(--SmartThemeBorderColor, rgba(255,255,255,0.1));
+}
+
+.cyoa-settings .cyoa-small-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+    min-width: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Responsive / Mobile
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .cyoa-panel-inner {
+        max-height: 55vh;
+    }
+
+    .cyoa-panel-header {
+        padding: 8px 12px;
+    }
+
+    .cyoa-queue-list {
+        padding: 6px 8px;
+    }
+
+    .cyoa-panel-footer {
+        padding: 8px 12px;
+    }
+
+    .cyoa-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,51 @@
+<div class="cyoa-settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>CYOA Multi-Choice Combiner</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+            <!-- Enable/Disable -->
+            <div class="cyoa-block">
+                <label class="checkbox_label" for="cyoa_enabled">
+                    <input type="checkbox" id="cyoa_enabled" />
+                    <span>Enable multi-choice selection</span>
+                </label>
+                <small style="display: block; margin-top: 4px; opacity: 0.6;">
+                    When enabled, clicking a CYOA choice button will select it instead of immediately sending.
+                    You can then select multiple choices and send them all at once.
+                </small>
+            </div>
+
+            <hr />
+
+            <!-- Show Numbers -->
+            <div class="cyoa-block">
+                <label class="checkbox_label" for="cyoa_show_numbers">
+                    <input type="checkbox" id="cyoa_show_numbers" />
+                    <span>Include numbering in sent message</span>
+                </label>
+                <small style="display: block; margin-top: 4px; opacity: 0.6;">
+                    Adds "1.", "2.", etc. before each choice in the combined message.
+                </small>
+            </div>
+
+            <hr />
+
+            <!-- Send Format -->
+            <div class="cyoa-block">
+                <label for="cyoa_send_format">Send Format Template</label>
+                <div class="cyoa-format-row">
+                    <textarea id="cyoa_send_format" class="cyoa-format-textarea" spellcheck="false"></textarea>
+                </div>
+                <div style="margin-top: 4px;">
+                    <button id="cyoa_reset_format" class="menu_button cyoa-small-btn" title="Reset to default format">↩ Reset</button>
+                </div>
+                <small style="display: block; margin-top: 4px; opacity: 0.6;">
+                    Use <code>{choices}</code> as a placeholder for the selected choices.
+                    <br/>Default: <code>I choose:\n{choices}</code>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
